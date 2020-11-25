@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="discount_assets" inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/discount_task/static/src/js/FixedDiscountButton.js"></script>
+        </xpath>
+    </template>
+</odoo>

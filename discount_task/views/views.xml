@@ -1,0 +1,77 @@
+<odoo>
+  <record id="pos_conf_discount_type" model="ir.ui.view">
+     <field name="name">pos.conf.discount.type</field>
+     <field name="model">pos.config</field>
+     <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+     <field name="arch" type="xml">
+      <xpath expr="//div[@id='pricing']" position="inside">
+                    <div class="col-12 col-lg-6 o_setting_box"
+                         id="pos_task_discount_config"
+                         title="Can manage the discount options"/>
+                         <div class="o_setting_left_pane">
+                             <field name="pos_task_discount_config" attrs="{'readonly': [('has_active_session','=', True)]}"/>
+                         </div>
+<!--                         <div class="o_setting_left_pane"/>-->
+<!--                             <label for="pos_task_discount_config" string="Discount Options"/>-->
+<!--                             <div class="text-muted">-->
+<!--                                Apply the discount Options-->
+<!--                             </div>-->
+
+<!--         &lt;!&ndash;                    <div class="col-xs-12 col-md-6 o_setting_box">&ndash;&gt;-->
+<!--         &lt;!&ndash;                        <div class="o_setting_left_pane"/>&ndash;&gt;-->
+<!--                             <div>-->
+<!--                               <field name="discount_type" class="o_light_label" widget="radio" selection="discount_percentage,discount_amount" attrs="{'invisible': [('pos_task_discount_config', '=', False)]}"/>-->
+<!--                             </div>-->
+                    <div class="col-xs-12 col-lg-6 o_setting_box" >
+                                     <div class="o_setting_left_pane">
+                                         <field name="pos_task_discount_config" attrs="{'readonly': [('has_active_session','=', True)]}"/>
+                                     </div>
+                                     <div class="o_setting_right_pane">
+                                         <label for="pos_task_discount_config"/>
+                                         <div class="text-muted">
+                                             Give discount Options
+                                         </div>
+                                         <div class="content-group " attrs="{'invisible':[('pos_task_discount_config','=',False)]}">
+                                             <div class="mt16">
+                                                 <field name="discount_type" class="o_light_label" widget="radio" selection="discount_percentage,discount_amount" attrs="{'invisible': [('pos_task_discount_config', '=', False)]}"/>
+                                             </div>
+<!--                                            <div class="row mt16">-->
+<!--                                            <label for="discount_product_id" class="col-lg-3 o_light_label"/>-->
+<!--                                            <field name="discount_product_id" attrs="{'required':[('pos_task_discount_config','=',True)]}"/>&ndash;&gt;-->
+<!--                                            </div>-->
+                                             <div class="row">
+                                             <label for="discount_value" class="col-lg-3 o_light_label"/>
+                                             <field name="discount_value"/>
+                                             </div>
+                                         </div>
+                                     </div>
+                    </div>
+<!--         <div class="col-xs-12 col-lg-6 o_setting_box">-->
+<!--             <div class="o_setting_left_pane">-->
+<!--                 <field name="pos_task_discount_config"/>-->
+<!--             </div>-->
+<!--             <div class="o_setting_left_pane">-->
+<!--                 <label for="pos_task_discount_config"/>-->
+<!--                 <div class="text-muted">-->
+<!--                 </div>-->
+<!--                 <div class="content-group " attrs="{'invisible':[('pos_task_discount_config','=',False)]}">-->
+<!--                     <div class="mt16">-->
+<!--                         <label for="discount_type" class="col-lg-3 o_light_label"/>-->
+<!--                         <field name="discount_type" widget="radio" options="{'horizontal': true}" class="o_light_label" attrs="{'required':[('pos_task_discount_config','=',True)]}"/>-->
+<!--                     </div>-->
+<!--                     <div class="row mt16">-->
+<!--                         <label for="discount_product_id" class="col-lg-3 o_light_label"/>-->
+<!--                         <field name="discount_product_id" attrs="{'required':[('pos_task_discount_config','=',True)]}"/>-->
+<!--                     </div>-->
+<!--                     <div class="row">-->
+<!--                         <label for="discount_value" class="col-lg-3 o_light_label"/>-->
+<!--                         <field name="discount_value"/>-->
+<!--                     </div>-->
+<!--                 </div>-->
+<!--             </div>-->
+<!--         </div>-->
+     </xpath>
+
+     </field>
+  </record>
+</odoo>

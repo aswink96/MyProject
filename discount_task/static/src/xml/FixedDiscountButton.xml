@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template2" xml:space="preserve">
+   <t t-name="FixedDiscountButton" owl="1">
+<!--     <div t-if="env.pos.config.fixed_discount">-->
+         <button class="control-button js_discount">
+           <i class="fa fa-inr"/>
+           <span>Fixed Discount</span>
+         </button>
+<!--     </div>-->
+   </t>
+</templates>
