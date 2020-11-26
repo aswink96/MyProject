@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+<!--      View for inheriting the product form-->
+      <record id="product_inherit" model="ir.ui.view">
+            <field name="name">product_template_inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <field name="taxes_id" position="after">
+                    <field name="warranty_type" attrs="{'invisible': [('has_warranty','=',False)]}" widget="Selection">Warranty Type</field>
+                    <field name="warranty_period" attrs="{'invisible': [('has_warranty','=',False)]}" >Warranty Period</field>
+                </field>
+                <field name="property_stock_production" position="after">
+                <field name="property_stock_warranty" widget="many2one">Warranty Location</field>
+                </field>
+
+          <div name="options" groups="base.group_user">
+              <div>
+                  <field name="has_warranty"/>
+                  <label for="has_warranty"/>
+              </div>
+          </div>
+            </field>
+
+      </record>
+<!--view for smart button-->
+      <record id="product_request_smart_button" model="ir.ui.view">
+            <field name="name">warranty.view.button</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form" />
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button" type="object" name="get_warranty"
+                        icon="fa-archive">
+                        <field string="Warranty Request" name="warranty_count" widget="statinfo"/>
+                    </button>
+                </div>
+            </field>
+      </record>
+<!--      form view -->
+      <record id="product_warranty_form" model="ir.ui.view">
+        <field name="name">Product_warranty_form</field>
+        <field name="model">product_warranty.product_warranty</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="button_to_approve" string="To approve" class="oe_highlight" type="object" states="draft"/>
+                    <button name="button_reset" string="Reset to Draft" class="oe_highlight" type="object" states="to approve"/>
+                    <button name="button_approved" string="Approved" class="oe_highlight" type="object"/>
+                    <button name="button_returnproduct" string="Return Product" class="oe_highlight" type="object" states="product received"/>
+                    <button name="button_cancel" string="Cancel" type="object"/>
+                    <button name="%(warranty_report_wizard)d" string="Warranty Report" type="action" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,to approve,approved,product received,done,cancelled"/>
+                </header>
+                <sheet>
+                    <div name="button_box" class="oe_button_box" position="inside">
+                     <button name="get_stockmove" class="oe_stat_button" icon="fa-bars" type="object" string="Stock Moves"> </button>
+                    </div>
+                <group>
+                    <group>
+                <field name="warranty_number"/>
+                <field name="invoice"/>
+                <field name="product"/>
+                <field name="partner" widget="res_partner_many2one" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}" options='{"always_reload":True}'/>
+                    </group>
+                    <group>
+
+                <field name="invoice_date"/>
+                <field name="serial_number"/>
+                <field name="current_date"/>
+                <field name="expiry_date" force_save="1"/>
+                    </group>
+                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+      <!-- tree view-->
+      <record id="product_warranty_tree" model="ir.ui.view">
+        <field name="name">Product_warranty_tree</field>
+        <field name="model">product_warranty.product_warranty</field>
+        <field name="arch" type="xml">
+            <tree string="Product Warranty" default_order="current_date">
+                <field name="warranty_number"/>
+                <field name="partner"/>
+                <field name="partner_street"/>
+                <field name="partner_city"/>
+                <field name="product"/>
+                <field name="invoice"/>
+                <field name="invoice_date"/>
+                <field name="current_date"/>
+                <field name="expiry_date"/>
+                <field name="serial_number"/>
+
+
+            </tree>
+        </field>
+     </record>
+      <!---->
+<!--      View for Filter and Group By-->
+      <record id="filter_groupby" model="ir.ui.view">
+          <field name="name">warranty filter </field>
+          <field name="model">product_warranty.product_warranty</field>
+          <field name="arch" type="xml">
+                 <search string="Status">
+                     <field name="state"/>
+                         <filter string="Approved" name="approved" domain="[('state','=','approved')]"/>
+                         <filter string="To Approve" name="to approve" domain="[('state','=','To approve')]"/>
+                         <filter string="Cancelled" name="cancelled" domain="[('state','=','cancelled')]"/>
+                         <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+
+                                 <filter name="invoice_id" string="Invoice" context="{'group_by':'invoice'}"/>
+                                   <filter name="product_id" string="Product" context="{'group_by':'product'}"/>
+                                     <filter name="customer_id" string="Customer" context="{'group_by':'partner'}"/>
+                 </search>
+
+                 </field>
+
+      </record>
+      <!--     view for adding a new page in invoice form -->
+   <record id="warranty_request_page_form" model="ir.ui.view">
+      <field name="name">warranty.view.page</field>
+      <field name="model">account.move</field>
+       <field name="inherit_id" ref="account.view_move_form"/>
+       <field name="arch" type="xml">
+         <notebook position="inside">
+           <page string="Warranty Info">
+             <field name="warranty_details" widget="one2many"/>
+           </page>
+         </notebook>
+       </field>
+   </record>
+
+<!--      view for product warranty model-->
+              <record model="ir.actions.act_window" id="product_warranty.menu_action">
+              <field name="name">Product Warranty</field>
+              <field name="res_model">product_warranty.product_warranty</field>
+
+    </record>
+<!--view for product warranty model fields-->
+
+<!--        <record model="ir.ui.view" id="product_warranty.list">-->
+<!--              <field name="name">product_warranty list</field>-->
+<!--              <field name="model">product_warranty.product_warranty</field>-->
+<!--              <field name="arch" type="xml">-->
+<!--              <tree>-->
+<!--                  <field name="warranty_number"/>-->
+<!--                  <field name="invoice"/>-->
+<!--                  <field name="product"/>-->
+<!--                  <field name="partner"/>-->
+<!--                  <field name="partner_street"/>-->
+<!--                  <field name="partner_city"/>-->
+<!--                  <field name="invoice_date"/>-->
+<!--                  <field name="current_date"/>-->
+<!--                  <field name="expiry_date"/>-->
+<!--                  <field name="serial_number"/>-->
+<!--              </tree>-->
+<!--          </field>-->
+<!--        </record>-->
+
+ <record id="warranty_sequence" model="ir.sequence">
+   <field name="name">Warranty Number Generator</field>
+   <field name="code">self.service</field>
+   <field name="active">TRUE</field>
+   <field name="prefix">WN</field>
+   <field name="padding">6</field>
+   <field name="number_next">1</field>
+   <field name="number_increment">1</field>
+</record>
+
+ </data>
+<!--    view for dependency on sales module-->
+    <menuitem id="product_warranty"
+            name="Product Warranty"
+            parent="sale.product_menu_catalog"
+            action="menu_action"/>
+</odoo>

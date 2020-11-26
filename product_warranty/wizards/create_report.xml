@@ -1,0 +1,40 @@
+<odoo>
+    <record id="warranty_wizard_view_form" model="ir.ui.view">
+        <field name="name">warranty.wizard.form</field>
+        <field name="model">warranty.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Warranty Report">
+                <group>
+                    <group string="Order Date Between">
+                        <field name="from_date"/>
+                        <field name="to_date"/>
+                    </group>
+                    <group string="Product">
+                        <field name="product" widget="many2many_tags"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="Print_pdf" string="Print Report" type="object" class="btn-primary"/>
+                    <button name="Print_xls" string="Print XLSX report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="warranty_report_wizard" model="ir.actions.act_window">
+        <field name="name">Warranty Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">warranty.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="warranty_wizard_view_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="warranty_report_menu"
+            name="Warranty Report"
+            parent="sale.sale_menu_root"
+            sequence="3"
+            action="warranty_report_wizard"/>
+
+</odoo>

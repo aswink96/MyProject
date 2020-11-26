@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+        <report
+            id="warranty_report_details"
+            string="Product Warranty PDF Report"
+            model="product_warranty.product_warranty"
+            report_type="qweb-pdf"
+            file="product_warranty.warranty_report_details"
+            name="product_warranty.warranty_report_details"
+            print_report_name="'PRODUCT-WARRANTY-%s' % object.name_seq"
+            menu="False"
+        />
+
+        <report
+                    id="warranty_report_details_xls"
+                    string="Warranty Report XLS"
+                    model="product_warranty.product_warranty"
+                    report_type="xlsx"
+                    name="product_warranty.warranty_report_details_xls"
+                    file="product_warranty.warranty_report_details_xls"
+        />
+    </data>
+</odoo>
