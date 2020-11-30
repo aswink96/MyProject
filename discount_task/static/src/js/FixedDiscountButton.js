@@ -7,6 +7,9 @@ var models = require('point_of_sale.models');
 var field_utils = require('web.field_utils');
 
 var _t = core._t;
+//var product_index = _.findIndex(existing_models, function (model) {
+//    return model.model === "product.product";
+//});
 
 
 var FixedDiscountButton = screens.ActionButtonWidget.extend({
@@ -32,7 +35,7 @@ var FixedDiscountButton = screens.ActionButtonWidget.extend({
         var lines    = order.get_orderlines();
         console.log("lines",lines);
         var product  = this.pos.db.get_product_by_id(this.pos.config.discount_product_id[0]);
-        console.log("pro",product);
+        console.log("pro",this);
         if (product === undefined) {
             this.gui.show_popup('error', {
                 title : _t("No discount product found"),
@@ -54,14 +57,25 @@ var FixedDiscountButton = screens.ActionButtonWidget.extend({
         // We add the price as manually set to avoid recomputation when changing customer.
         var base_to_discount = order.get_total_without_tax();
         console.log("base",base_to_discount);
+        console.log("dis",pc);
 //        if (product.taxes_id.length){
 //            var first_tax = this.pos.taxes_by_id[product.taxes_id[0]];
-            if (first_tax.price_include) {
-                base_to_discount = order.get_total_with_tax();
-            }
-
-        var discount = - pc / 100.0 * base_to_discount;
-
+//            if (first_tax.price_include) {
+//                base_to_discount = order.get_total_with_tax();
+//            }
+        var discount_amount_type=this.pos.config.discount_type;
+        console.log("type",discount_amount_type);
+        if (discount_amount_type=='discount_percentage'){
+         var discount = - pc / 100.0 * base_to_discount;
+         console.log("p",discount_amount_type);
+        }
+//        if(discount_amount_type='discount_amount'){
+//          var discount= -pc;
+//          }
+        else{
+        var discount = -pc;
+        console.log("d",discount_amount_type)
+        }
         if( discount < 0 ){
             order.add_product(product, {
                 price: discount,
