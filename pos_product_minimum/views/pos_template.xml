@@ -1,0 +1,7 @@
+<odoo>
+  <template id="quantity_assets" inherit_id="point_of_sale.assets">
+     <xpath expr="." position="inside">
+        <script type="text/javascript" src="/pos_product_minimum/static/src/js/product_minimum.js"/>
+     </xpath>
+  </template>
+</odoo>
