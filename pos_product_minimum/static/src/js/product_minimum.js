@@ -1,12 +1,8 @@
 odoo.define('pos_product_minimum.product_minimum', function (require) {
 "use strict";
 
-//var core = require('web.core');
-//var screens = require('point_of_sale.screens');
-var models  = require('point_of_sale.models');
-
+var models = require('point_of_sale.models');
 models.load_fields("product.product",['contained_quantity']);
-console.log("m",models);
 
 var _super_orderline = models.Orderline.prototype;
 models.Orderline =models.Orderline.extend({
