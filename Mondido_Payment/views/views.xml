@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="payment_acquirer_form_mondido" model="ir.ui.view">
+      <field name="name">payment.acquirer.form.inherit</field>
+      <field name="model">payment.acquirer</field>
+      <field name="inherit_id" ref="payment.acquirer_form"/>
+      <field name="arch" type="xml">
+        <xpath expr='//group[@name="acquirer"]' position='inside'>
+        <group attrs="{'invisible': [('provider', '!=', 'mondido')]}">
+           <field name="mondido_key_id" attrs="{'required':[ ('provider', '=', 'mondido'), ('state', '!=', 'disabled')]}"/>
+           <field name="mondido_key_secret" attrs="{'required':[ ('provider', '=', 'mondido'), ('state', '!=', 'disabled')]}"/>
+        </group>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>
