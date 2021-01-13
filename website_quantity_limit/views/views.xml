@@ -5,6 +5,7 @@
             <field name="name">view_pos_product_minimum</field>
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_normal_form_view"/>
+<!--            <field name="inherit_id" ref="product.product_template_only_form_view"-->
             <field name="arch" type="xml">
                     <xpath expr="//field[@name='website_ribbon_id']" position="after">
                         <field name="min_quantity_limit"/>
