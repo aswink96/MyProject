@@ -26,8 +26,8 @@
     'data': [
         # 'security/ir.model.access.csv',
         'views/views.xml',
-        # 'views/templates.xml',
-        'views/mondido_template.xml',
+        'views/templates.xml',
+        # 'views/mondido_template.xml',
         'data/mondido_acquirer.xml'
     ],
     # only loaded in demonstration mode

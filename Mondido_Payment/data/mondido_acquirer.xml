@@ -11,7 +11,7 @@
         <field name="company_id" ref="base.main_company"/>
         <field name="description" type="html">
             <p>
-                Mondido is the easiest way to accept payments via Paytrail or credit cards.
+                Mondido is the easiest way to accept payments credit cards.
             </p>
             <ul class="list-inline">
                 <li class="list-inline-item"><i class="fa fa-check"/>Online Payment</li>
@@ -26,6 +26,7 @@
                                                         ref("payment.payment_icon_cc_american_express"),
                                                         ref("payment.payment_icon_cc_unionpay"),
                                                         ref("payment.payment_icon_cc_visa")])]'/>
+         <field name="view_template_id" ref="mondido_test"/>
     </record>
 
 
